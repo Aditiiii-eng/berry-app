@@ -1,5 +1,5 @@
 export const USE_MOCK_API = import.meta.env.VITE_USE_MOCK_API === "true";
-export const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+export const API_BASE = import.meta.env.VITE_API_BASE || "https://respectful-trust-production.up.railway.app";
 
 export const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
