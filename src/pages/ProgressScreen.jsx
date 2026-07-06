@@ -184,10 +184,13 @@ export function ProgressScreen() {
   const DEFAULT_GOALS = { calories: 2200, protein: 150, carbs: 250, fats: 70 };
   const GOALS = userGoals ? { ...DEFAULT_GOALS, ...userGoals, fats: userGoals.fat ?? DEFAULT_GOALS.fats } : DEFAULT_GOALS;
 
-  const calConsumed = dailyData?.calories || 0;
-  const proteinConsumed = dailyData?.protein || 0;
-  const carbsConsumed = dailyData?.carbs || 0;
-  const fatConsumed = dailyData?.fat || 0;
+  // Backend wraps macros inside a "totals" key: { totals: { calories, protein, ... }, goals, byMealType, topFoods }
+  // Fall back to flat structure for mock API compatibility.
+  const totals = dailyData?.totals ?? dailyData;
+  const calConsumed = totals?.calories || 0;
+  const proteinConsumed = totals?.protein || 0;
+  const carbsConsumed = totals?.carbs || 0;
+  const fatConsumed = totals?.fat || 0;
 
   const calPct = Math.min(100, Math.round((calConsumed / GOALS.calories) * 100));
   const proteinPct = Math.min(100, Math.round((proteinConsumed / GOALS.protein) * 100));
